@@ -43,7 +43,7 @@ class AuthController extends Controller
             return new ApiResource(false, 'Email atau Password Salah', null);
         }
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first()->load('grade');
         if (!Hash::check($request->password, $user->password, [])) {
             return new \Exception('Error in Login');
         }
