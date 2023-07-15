@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\DepositController;
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\StudentController;
 
 /*
@@ -39,4 +40,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/teacher', UserController::class)->only(['update', 'show']);
     Route::apiResource('/deposit', DepositController::class)->only(['store', 'update', 'destroy']);
     Route::apiResource('/credit', CreditController::class)->only(['store', 'update', 'destroy']);
+
+    Route::get('/homepage', HomepageController::class);
 });
