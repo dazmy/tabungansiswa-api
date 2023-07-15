@@ -40,7 +40,7 @@ class AuthController extends Controller
 
         $credentials = $request->only(['email', 'password']);
         if (!Auth::attempt($credentials)) {
-            return new ApiResource(false, 'Invalid credentials', null);
+            return new ApiResource(false, 'Email atau Password Salah', null);
         }
 
         $user = User::where('email', $request->email)->first();
