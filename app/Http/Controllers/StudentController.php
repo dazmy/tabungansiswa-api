@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ApiResource;
+use Carbon\Carbon;
+use App\Models\Deposit;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Http\Resources\ApiResource;
+use App\Models\Credit;
 use PHPUnit\Framework\MockObject\Builder\Stub;
 
 class StudentController extends Controller
@@ -56,7 +59,18 @@ class StudentController extends Controller
         }
         $student->deposits;
         $student->credits;
-        return new ApiResource(true, 'Student details', $student);
+
+        $student->deposit = $student->deposits->sum('deposit');
+        $student->credit = $student->credits->sum('credit');
+        // get the sum one month of student's credit
+        $month_deposit = Deposit::where('student_id', $student->id)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->pluck('deposit')->sum() - Credit::where('student_id', $student->id)->whereMonth('created_at', Carbon::now()->month)->pluck('credit')->sum();
+
+        return new ApiResource(true, 'Student details', [
+            'student' => $student,
+            'month_deposit' => $month_deposit,
+        ]);
     }
 
     /**
