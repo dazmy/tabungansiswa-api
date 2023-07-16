@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\DepositController;
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HomepageController;
@@ -46,4 +47,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/homepage', HomepageController::class);
     Route::get('/profile', ProfileController::class);
+    Route::get('/grade', GradeController::class);
 });
