@@ -2,13 +2,16 @@
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\DepositController;
-use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\HomepageController;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +45,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/credit', CreditController::class)->only(['store', 'update', 'destroy']);
 
     Route::get('/homepage', HomepageController::class);
+    Route::get('/profile', ProfileController::class);
 });
