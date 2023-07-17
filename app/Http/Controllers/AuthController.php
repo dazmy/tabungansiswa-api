@@ -15,14 +15,14 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:50',
             'grade_id' => 'required|integer|exists:grades,id|unique:users,grade_id',
-            'email' => 'required|email|unique:users,email',
+            'username' => 'required|string|unique:users,username',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'grade_id' => $request->grade_id,
-            'email' => $request->email, 
+            'username' => $request->username, 
             'password' => Hash::make($request->password),
         ]);
 
@@ -34,16 +34,16 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'username' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        $credentials = $request->only(['email', 'password']);
+        $credentials = $request->only(['username', 'password']);
         if (!Auth::attempt($credentials)) {
-            return new ApiResource(false, 'Email atau Password Salah', null);
+            return new ApiResource(false, 'Username atau Password Salah', null);
         }
 
-        $user = User::where('email', $request->email)->first()->load('grade');
+        $user = User::where('username', $request->username)->first()->load('grade');
         if (!Hash::check($request->password, $user->password, [])) {
             return new \Exception('Error in Login');
         }
