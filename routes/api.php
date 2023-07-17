@@ -12,6 +12,7 @@ use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\SearchByMonthController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
@@ -48,4 +49,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/homepage', HomepageController::class);
     Route::get('/profile', ProfileController::class);
     Route::get('/grade', GradeController::class);
+
+    Route::get('/detailofmonth/{id}/{month}/{year}', SearchByMonthController::class);
 });
