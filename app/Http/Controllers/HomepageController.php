@@ -17,15 +17,13 @@ class HomepageController extends Controller
     {
         $user = auth()->user()->load('grade');
 
-        $deposit = Deposit::orderBy('created_at', 'desc')->get()->load('student');
-        $deposit = $deposit->filter(function ($item) {
-            return $item->student->grade_id == auth()->user()->grade_id;
-        })->take(3);
-        
-        $credit = Credit::orderBy('created_at', 'desc')->get()->load('student');
-        $credit = $credit->filter(function ($item) {
-            return $item->student->grade_id == auth()->user()->grade_id;
-        })->take(3);
+        $deposit = Deposit::whereHas('student', function ($query) {
+            $query->where('grade_id', auth()->user()->grade_id);
+        })->orderBy('created_at', 'desc')->take(3)->get()->load('student');
+
+        $credit = Credit::whereHas('student', function ($query) {
+            $query->where('grade_id', auth()->user()->grade_id);
+        })->orderBy('created_at', 'desc')->take(3)->get()->load('student');
 
         return new ApiResource(true, 'Homepage', [
             'user' => $user,
