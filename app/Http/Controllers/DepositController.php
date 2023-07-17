@@ -54,7 +54,14 @@ class DepositController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $student = Student::find($id);
+        if(!$student) {
+            return new ApiResource(false, 'Student not found', null);
+        }
+        $student->deposits = $student->deposits()->orderBy('created_at', 'desc')->get();
+        $student->credits = $student->credits()->orderBy('created_at', 'desc')->get();
+
+        return new ApiResource(true, 'Student deposits', ['student' => $student]);
     }
 
     /**

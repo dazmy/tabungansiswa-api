@@ -42,7 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('/students', StudentController::class);
     Route::apiResource('/teacher', UserController::class)->only(['update', 'show']);
-    Route::apiResource('/deposit', DepositController::class)->only(['store', 'update', 'destroy']);
+    Route::apiResource('/deposit', DepositController::class)->only(['store', 'show', 'update', 'destroy']);
     Route::apiResource('/credit', CreditController::class)->only(['store', 'update', 'destroy']);
 
     Route::get('/homepage', HomepageController::class);
