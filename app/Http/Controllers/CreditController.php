@@ -74,6 +74,7 @@ class CreditController extends Controller
     {
         $request->validate([
             'credit' => 'required|integer',
+            'input_date' => 'required|date_format:Y-m-d H:i:s',
         ]);
 
         $credit = Credit::find($id);
@@ -83,6 +84,7 @@ class CreditController extends Controller
 
         $credit->update([
             'credit' => $request->credit,
+            'input_date' => $request->input_date,
         ]);
         $credit->load('student');
 

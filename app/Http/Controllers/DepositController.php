@@ -81,6 +81,7 @@ class DepositController extends Controller
     {
         $request->validate([
             'deposit' => 'required|integer',
+            'input_date' => 'required|date_format:Y-m-d H:i:s',
         ]);
 
         $deposit = Deposit::find($id);
@@ -90,6 +91,7 @@ class DepositController extends Controller
 
         $deposit->update([
             'deposit' => $request->deposit,
+            'input_date' => $request->input_date,
         ]);
         $deposit->load('student');
 

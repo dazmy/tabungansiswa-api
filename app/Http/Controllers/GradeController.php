@@ -22,7 +22,7 @@ class GradeController extends Controller
         }
 
         return new ApiResource(true, 'Grade data retrieved successfully', [
-            'students' => $students,
+            'students' => $students->load('grade'),
         ]);
     }
 }

@@ -53,7 +53,7 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        $student = Student::find($id);
+        $student = Student::find($id)->load('grade');
         if(!$student) {
             return new ApiResource(false, 'Student not found', null);
         }
