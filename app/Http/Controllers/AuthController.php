@@ -15,7 +15,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:50',
             'grade_id' => 'required|integer|exists:grades,id|unique:users,grade_id',
-            'username' => 'required|string|unique:users,username',
+            'username' => 'required|string|unique:users,username|min:8',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -26,8 +26,8 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->assignrole('teacher');
-
+        $user->assignRole('teacher');
+        
         return new ApiResource(true, 'Registration successful', $user);
     }
 

@@ -13,6 +13,7 @@ class Deposit extends Model
     protected $fillable = [
         'deposit',
         'student_id',
+        'input_date'
     ];
 
     /**

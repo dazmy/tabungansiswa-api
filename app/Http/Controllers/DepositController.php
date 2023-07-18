@@ -33,6 +33,7 @@ class DepositController extends Controller
         $request->validate([
             'deposit' => 'required|integer',
             'student_id' => 'required|integer|exists:students,id',
+            'input_date' => 'required|date',
         ]);
 
         $student = Student::find($request->student_id);
@@ -43,6 +44,7 @@ class DepositController extends Controller
         $student->deposits()->create([
             'deposit' => $request->deposit,
             'student_id' => $student->id,
+            'input_date' => $request->input_date,
         ]);
         $student->load('deposits', 'credits');
 
@@ -58,8 +60,8 @@ class DepositController extends Controller
         if(!$student) {
             return new ApiResource(false, 'Student not found', null);
         }
-        $student->deposits = $student->deposits()->orderBy('created_at', 'desc')->get();
-        $student->credits = $student->credits()->orderBy('created_at', 'desc')->get();
+        $student->deposits = $student->deposits()->orderBy('input_date', 'desc')->get();
+        $student->credits = $student->credits()->orderBy('input_date', 'desc')->get();
 
         return new ApiResource(true, 'Student deposits', ['student' => $student]);
     }

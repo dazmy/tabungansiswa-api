@@ -64,8 +64,8 @@ class StudentController extends Controller
         $student->credit = $student->credits->sum('credit');
         // get the sum one month of student's credit
         $month_deposit = Deposit::where('student_id', $student->id)
-            ->whereMonth('created_at', Carbon::now()->month)
-            ->pluck('deposit')->sum() - Credit::where('student_id', $student->id)->whereMonth('created_at', Carbon::now()->month)->pluck('credit')->sum();
+            ->whereMonth('input_date', Carbon::now()->month)
+            ->pluck('deposit')->sum() - Credit::where('student_id', $student->id)->whereMonth('input_date', Carbon::now()->month)->pluck('credit')->sum();
 
         return new ApiResource(true, 'Student details', [
             'student' => $student,

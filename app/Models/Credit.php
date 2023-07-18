@@ -13,6 +13,7 @@ class Credit extends Model
     protected $fillable = [
         'credit',
         'student_id',
+        'input_date'
     ];
 
     /**

@@ -10,20 +10,20 @@ class SearchByMonthController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, string $id, string $month, string $year)
+    public function __invoke(Request $request, string $studentid, string $month, string $year)
     {
         $month = $month;
         $year = $year;
-        $student_id = $id;
+        $student_id = $studentid;
 
         $deposit = \App\Models\Deposit::where('student_id', $student_id)
-            ->whereMonth('created_at', $month)
-            ->whereYear('created_at', $year)
+            ->whereMonth('input_date', $month)
+            ->whereYear('input_date', $year)
             ->get();
 
         $credit = \App\Models\Credit::where('student_id', $student_id)
-            ->whereMonth('created_at', $month)
-            ->whereYear('created_at', $year)
+            ->whereMonth('input_date', $month)
+            ->whereYear('input_date', $year)
             ->get();
 
         $total_deposit = 0;

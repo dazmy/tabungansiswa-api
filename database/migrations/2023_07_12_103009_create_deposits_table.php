@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('deposit');
             $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
+            $table->timestamp('input_date')->useCurrent();
             $table->timestamps();
         });
     }

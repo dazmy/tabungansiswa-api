@@ -33,6 +33,7 @@ class CreditController extends Controller
         $request->validate([
             'credit' => 'required|integer',
             'student_id' => 'required|integer|exists:students,id',
+            'input_date' => 'required|date',
         ]);
 
         $student = Student::find($request->student_id);
@@ -43,6 +44,7 @@ class CreditController extends Controller
         $student->credits()->create([
             'credit' => $request->credit,
             'student_id' => $student->id,
+            'input_date' => $request->input_date,
         ]);
         $student->load('deposits', 'credits');
 
