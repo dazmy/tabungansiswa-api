@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ApiResource;
+use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Http\Resources\ApiResource;
 
 class SearchByMonthController extends Controller
 {
@@ -15,6 +16,10 @@ class SearchByMonthController extends Controller
         $month = $month;
         $year = $year;
         $student_id = $studentid;
+
+        if (Student::find($student_id) == null) {
+            return new ApiResource(false, 'Student not found', null);
+        };
 
         $deposit = \App\Models\Deposit::where('student_id', $student_id)
             ->whereMonth('input_date', $month)

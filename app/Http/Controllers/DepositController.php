@@ -33,7 +33,7 @@ class DepositController extends Controller
         $request->validate([
             'deposit' => 'required|integer',
             'student_id' => 'required|integer|exists:students,id',
-            'input_date' => 'required|date',
+            'input_date' => 'required|date_format:Y-m-d H:i:s',
         ]);
 
         $student = Student::find($request->student_id);
