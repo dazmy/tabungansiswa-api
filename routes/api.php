@@ -10,6 +10,7 @@ use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SearchByMonthController;
 
 /*
@@ -42,10 +43,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/teacher', UserController::class)->only(['update', 'show']);
     Route::apiResource('/deposit', DepositController::class)->only(['store', 'show', 'update', 'destroy']);
     Route::apiResource('/credit', CreditController::class)->only(['store', 'update', 'destroy']);
-
+    
     Route::get('/homepage', HomepageController::class);
     Route::get('/profile', ProfileController::class);
     Route::get('/grade', GradeController::class);
-
+    
     Route::get('/detailofmonth/{studentid}/{month}/{year}', SearchByMonthController::class);
+    Route::get('/datamonth/{month}/{year}', [PDFController::class, 'getMonth']);
 });
